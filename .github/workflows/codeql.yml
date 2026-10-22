@@ -34,6 +34,15 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
+        # REMARK: Added paths-ignore to exclude compiled, minified, and third-party files.
+        # This stops CodeQL from analyzing single-line minified files that trigger the "Preview unavailable" error.
+        paths-ignore: |
+          '**/*.min.js'
+          '**/*.min.css'
+          '**/*.bundle.js'
+          '**/dist/**'
+          '**/build/**'
+          '**/node_modules/**'
 
     - name: Run manual build steps
       if: matrix.build-mode == 'manual'
