@@ -34,12 +34,15 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
-        # REMARK: Added paths-ignore to exclude compiled, minified, and third-party files.
-        # This stops CodeQL from analyzing single-line minified files that trigger the "Preview unavailable" error.
+        # REMARK: Added paths-ignore to exclude third-party libraries, minified files,
+        # and bundled extension scripts like lib/xlsx.mjs.
         paths-ignore: |
+          '**/lib/**'
+          '**/*.mjs'
           '**/*.min.js'
           '**/*.min.css'
           '**/*.bundle.js'
+          '**/drive-download-*/**'
           '**/dist/**'
           '**/build/**'
           '**/node_modules/**'
